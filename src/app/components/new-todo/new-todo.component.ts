@@ -20,5 +20,4 @@ export class NewTodoComponent implements OnInit {
     this.store.dispatch(new CreateTodo(this.newItem));
     this.newItem = null;
   }
-
 }
