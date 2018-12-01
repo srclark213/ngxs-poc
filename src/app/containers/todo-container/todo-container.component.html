@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header">
+    Todo Items
+  </div>
+  <ul class="list-group list-group-flush">
+    <li *ngFor='let todo of todos$ | async' class="list-group-item">
+      <app-todo-item [todo]='todo'></app-todo-item>
+    </li>
+  </ul>
+  <div class="card-footer bg-transparent">
+    <app-new-todo></app-new-todo>
+  </div>
+</div>
