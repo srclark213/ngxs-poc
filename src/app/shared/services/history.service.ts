@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions } from '@ngxs/store';
+import { Actions, getActionTypeFromInstance } from '@ngxs/store';
 import { filter } from 'rxjs/operators';
 import { delay } from 'lodash';
 import { ActionStatus } from 'src/app/data/ActionStatus';
@@ -17,8 +17,8 @@ export class HistoryService {
   }
 
   handleAction(event: any) {
-    var type = this.getActionType(event.action);
-    
+    var type = getActionTypeFromInstance(event.action);
+
     // create a new object that combines the action with its static type as a non static member
     var action = {type, ...event.action}; 
     this.actionHistory.push(action);
@@ -34,10 +34,5 @@ export class HistoryService {
         this.actionHistory = [];
       }, 500);
     }
-  }
-
-  private getActionType(action: any): string {
-    var baseType = Object.getPrototypeOf(action);
-    return baseType.constructor.type;
   }
 }
