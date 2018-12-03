@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions } from '@ngxs/store';
 import { filter } from 'rxjs/operators';
 import { delay } from 'lodash';
+import { ActionStatus } from 'src/app/data/ActionStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class HistoryService {
     if (this.actionHistory.length >= this.LOG_CHUNK_SIZE) {
       // 500ms delay to simulate api call
       delay(() => {
-        console.log(this.actionHistory);
+        console.log('Saved action history: ', this.actionHistory);
         this.actionHistory = [];
       }, 500);
     }
@@ -39,9 +40,4 @@ export class HistoryService {
     var baseType = Object.getPrototypeOf(action);
     return baseType.constructor.type;
   }
-}
-
-enum ActionStatus {
-  DISPATCHED = 'DISPATCHED',
-  SUCCESSFUL = 'SUCCESSFUL'
 }

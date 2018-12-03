@@ -9,6 +9,8 @@ import { NewTodoComponent } from './components/new-todo/new-todo.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoState } from './data/state/todo.state';
 import { HistoryService } from './shared/services/history.service';
+import { SnapshotService } from './shared/services/snapshot.service';
+import { AppState } from './data/state/app.state';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,13 @@ import { HistoryService } from './shared/services/history.service';
   imports: [
     BrowserModule,
     FormsModule,
-    NgxsModule.forRoot([TodoState])
+    NgxsModule.forRoot([AppState, TodoState])
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: () => function() {},
-      deps: [HistoryService],
+      deps: [HistoryService, SnapshotService],
       multi: true
     }
   ],
