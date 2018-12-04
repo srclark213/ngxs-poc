@@ -14,14 +14,15 @@ import { map } from 'rxjs/operators';
 })
 export class TodoItemComponent implements OnInit {
 
-  todo: Observable<TodoModel>;
+  todo: TodoModel
+  todo$: Observable<TodoModel>;
   @Select(TodoState.getTodoById) todoByIdFn$: Observable<(id: number) => TodoModel>
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.todo = this.todoByIdFn$.pipe(map(fn => fn(+this.route.snapshot.params['id'])))
-    this.todo.subscribe(val => console.log(val))
+    this.todo$ = this.todoByIdFn$.pipe(map(fn => fn(+this.route.snapshot.params['id'])))
+    this.todo$.subscribe(val => this.todo = val)
   }
 
 }
