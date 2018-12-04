@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 
 import { AppComponent } from './app.component';
 import { TodoContainerComponent } from './containers/todo-container/todo-container.component';

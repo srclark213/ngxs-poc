@@ -1,3 +1,3 @@
 export interface TodoStateModel {
-    todos: string[];
+    todos: {id: number, name: string}[];
 }
