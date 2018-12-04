@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TodoModel } from 'src/app/data/models/todo.model'
-import { ActivatedRoute, RouterModule } from '@angular/router'
+import { TodoModel } from 'src/app/data/models/todo.model';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { TodoState } from 'src/app/data/state/todo.state';
@@ -14,15 +14,15 @@ import { map } from 'rxjs/operators';
 })
 export class TodoItemComponent implements OnInit {
 
-  todo: TodoModel
+  todo: TodoModel;
   todo$: Observable<TodoModel>;
-  @Select(TodoState.getTodoById) todoByIdFn$: Observable<(id: number) => TodoModel>
+  @Select(TodoState.getTodoById) todoByIdFn$: Observable<(id: number) => TodoModel>;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.todo$ = this.todoByIdFn$.pipe(map(fn => fn(+this.route.snapshot.params['id'])))
-    this.todo$.subscribe(val => this.todo = val)
+    this.todo$ = this.todoByIdFn$.pipe(map(fn => fn(+this.route.snapshot.params['id'])));
+    this.todo$.subscribe(val => this.todo = val);
   }
 
 }

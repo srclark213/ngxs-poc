@@ -12,15 +12,15 @@ export class HistoryService {
   private actionHistory: any[] = [];
   private LOG_CHUNK_SIZE = 5;
 
-  constructor(private actions$: Actions) { 
+  constructor(private actions$: Actions) {
     this.actions$.pipe(filter(event => event.status === ActionStatus.DISPATCHED)).subscribe(this.handleAction.bind(this));
   }
 
   handleAction(event: any) {
-    var type = this.getActionType(event.action);
-    
+    const type = this.getActionType(event.action);
+
     // create a new object that combines the action with its static type as a non static member
-    var action = {type, ...event.action}; 
+    const action = {type, ...event.action};
     this.actionHistory.push(action);
 
     this.tryPushLogs();
@@ -37,7 +37,7 @@ export class HistoryService {
   }
 
   private getActionType(action: any): string {
-    var baseType = Object.getPrototypeOf(action);
+    const baseType = Object.getPrototypeOf(action);
     return baseType.constructor.type;
   }
 }

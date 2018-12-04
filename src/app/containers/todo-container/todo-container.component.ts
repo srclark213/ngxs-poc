@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { TodoModel } from 'src/app/data/models/todo.model'
+import { TodoModel } from 'src/app/data/models/todo.model';
 
 @Component({
   selector: 'app-todo-container',

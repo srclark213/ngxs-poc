@@ -12,19 +12,19 @@ import { Observable } from 'rxjs';
 })
 export class NewTodoComponent implements OnInit {
 
-  @Select(TodoState.todos) todos$: Observable<TodoModel[]>
-  newId: number
+  @Select(TodoState.todos) todos$: Observable<TodoModel[]>;
+  newId: number;
   newItem: string;
-  constructor(private store: Store) { 
-    this.todos$.subscribe(todos => this.newId = todos.length+1)
+  constructor(private store: Store) {
+    this.todos$.subscribe(todos => this.newId = todos.length + 1);
   }
 
   ngOnInit() {
   }
 
   submit() {
-    if (!this.newItem || this.newItem.length < 1) return;
-    this.store.dispatch(new CreateTodo(new TodoModel(this.newId, this.newItem)))
+    if (!this.newItem || this.newItem.length < 1) { return; }
+    this.store.dispatch(new CreateTodo(new TodoModel(this.newId, this.newItem)));
     this.newItem = null;
   }
 }
