@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TodoModel } from 'src/app/data/models/todo.model'
+
 
 @Component({
   selector: 'app-todo-item',
@@ -7,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TodoItemComponent implements OnInit {
 
-  @Input() todo: string;
+  @Input() todo: TodoModel;
 
   constructor() { }
 
