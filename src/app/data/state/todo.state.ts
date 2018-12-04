@@ -21,4 +21,9 @@ export class TodoState {
     static todos(state: TodoStateModel) {
         return state.todos
     }
+
+    @Selector()
+    static getTodoById(state: TodoStateModel) {
+        return (id: number) => state.todos.filter((todo) => todo.id === id)[0]
+    }
 }
