@@ -1,5 +1,6 @@
 <div class="container">
   <router-outlet></router-outlet>
 
-  <button class="btn btn-primary" (click)='loadLastSnapshot()'>Load Last Snapshot</button>
+  <button *ngIf="showPrev()" class="btn btn-primary" (click)='loadPreviousSnapshot()'>Previous State</button>
+  <button *ngIf="showNext()" class="btn btn-primary" (click)='loadNextSnapshot()'>Next State</button>
 </div>

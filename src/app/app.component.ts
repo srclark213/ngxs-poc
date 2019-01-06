@@ -10,9 +10,20 @@ import { LoadState } from './data/actions/app.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private store: Store, private snapshotService: SnapshotService) { }
+  constructor(private snapshotService: SnapshotService) { }
 
-  loadLastSnapshot() {
-    this.store.dispatch(new LoadState({ snapshot: this.snapshotService.lastSnapshot }));
+  loadPreviousSnapshot() {
+    if (this.snapshotService.currentSnapshot === 0) return;
+
+    this.snapshotService.resetStore(this.snapshotService.currentSnapshot - 1);
   }
+
+  loadNextSnapshot() {
+    if(this.snapshotService.currentSnapshot === this.snapshotService.snapshotHistory.length - 1) return;
+
+    this.snapshotService.resetStore(this.snapshotService.currentSnapshot + 1);
+  }
+
+  showPrev = () => this.snapshotService.currentSnapshot > 0;
+  showNext = () => this.snapshotService.currentSnapshot < this.snapshotService.snapshotHistory.length - 1;
 }

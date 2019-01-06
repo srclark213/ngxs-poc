@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Store, InitState, ofActionSuccessful } from '@ngxs/store';
+import { Actions, Store, ofActionSuccessful, InitState } from '@ngxs/store';
 import { filter } from 'rxjs/operators';
 import { ActionStatus } from 'src/app/data/ActionStatus';
 
@@ -8,25 +8,24 @@ import { ActionStatus } from 'src/app/data/ActionStatus';
 })
 export class SnapshotService {
 
-  public lastSnapshot: any;
-
-  private count = 0;
-  private LOG_CHUNK_SIZE = 5;
+  public snapshotHistory: any[] = [];
+  public currentSnapshot: number = -1;
 
   constructor(private actions$: Actions, private store: Store) {
 
-    this.actions$.pipe(filter(event => event.status === ActionStatus.SUCCESSFUL)).subscribe(this.handleAction.bind(this));
-
-    this.actions$.pipe(ofActionSuccessful(InitState)).subscribe(() => this.lastSnapshot = this.store.snapshot()); // save initial state
+    this.actions$.pipe(filter(event => event.status === ActionStatus.SUCCESSFUL && event.action.appAction)).subscribe(this.saveSnapshot.bind(this));
+    this.actions$.pipe(ofActionSuccessful(InitState)).subscribe(this.saveSnapshot.bind(this)); // save initial state
   }
 
-  handleAction(event: any) {
-    this.count++;
+  saveSnapshot(event: any) {
+    const snapshot = this.store.snapshot();
 
-    if (this.count >= this.LOG_CHUNK_SIZE) {
-      const snapshot = this.store.snapshot();
-      this.lastSnapshot = snapshot;
-      this.count = 0;
-    }
+    this.snapshotHistory.push(snapshot);
+    this.currentSnapshot = this.snapshotHistory.length - 1;
+  }
+
+  resetStore(index: number) {
+    this.store.reset(this.snapshotHistory[index]);
+    this.currentSnapshot = index;
   }
 }
